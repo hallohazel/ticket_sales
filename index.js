@@ -23,9 +23,7 @@ app.use(`/user`, userRoute)
 app.listen(PORT, () => {
     console.log(`Server of Ticket Sales runs on port ${PORT}`)
 })
-/** LOAD route CRUD */
 const eventRoute = require(`./routes/event.route`)
 app.use(`/event`, eventRoute)
-
 /** route to access uploaded file */
 app.use(express.static(__dirname))
