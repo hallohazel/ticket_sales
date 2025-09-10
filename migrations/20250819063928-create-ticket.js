@@ -13,36 +13,28 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'events',   // nama tabel parent
-          key: 'eventID'     // kolom PK di tabel parent
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+          model: "events",
+          key: "eventID"
+        }
       },
       userID: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'users',
-          key: 'userID'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+          model: "users",
+          key: "userID"
+        }
       },
       seatID: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'seats',
-          key: 'seatID'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+          model: "seats",
+          key: "seatID"
+        }
       },
       bookedDate: {
-        type: Sequelize.DATE,
-        allowNull: false,
-        defaultValue: Sequelize.NOW
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,

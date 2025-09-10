@@ -27,11 +27,10 @@ const upload = multer({
             return cb(`Invalid file type (${file.mimetype})`)
 
         }
-
         /** filter size of file */
         const fileSize = req.headers[`content-length`]
         const maxSize = (1 * 1024 * 1024) /** max: 1MB */
-        if(fileSize > maxSize){
+        if (fileSize > maxSize) {
             cb(null, false) /** refuse upload */
             return cb(`File size is too large`)
         }

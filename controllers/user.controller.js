@@ -4,6 +4,7 @@ const md5 = require(`md5`)
 
 /** load Operation from  Sequelize  */
 const Op = require(`sequelize`).Op
+
 /** create function for read all data */
 exports.getAllUser = async (request, response) => {
     /** call findAll() to get all data */
@@ -14,6 +15,7 @@ exports.getAllUser = async (request, response) => {
         message: `All users have been loaded`
     })
 }
+
 /** create function for filter */
 exports.findUser = async (request, response) => {
     /** define keyword to find data */
@@ -21,7 +23,7 @@ exports.findUser = async (request, response) => {
 
     /** call findAll() within where clause and operation 
      * to find data based on keyword  */
-    let users = await userModel.findAll({
+let users = await userModel.findAll({
         where: {
             [Op.or]: [
                 { userID: { [Op.substring]: keyword } },
@@ -38,6 +40,7 @@ exports.findUser = async (request, response) => {
         message: `All Users have been loaded`
     })
 }
+
 /** create function for add new user */
 exports.addUser = (request, response) => {
     /** prepare data from request */
@@ -67,6 +70,7 @@ exports.addUser = (request, response) => {
             })
         })
 }
+
 /** create function for update user */
 exports.updateUser = (request, response) => {
     /** prepare data that has been changed */
@@ -99,6 +103,7 @@ exports.updateUser = (request, response) => {
             })
         })
 }
+
 /** create function for delete data  */
 exports.deleteUser = (request, response) => {
     /** define id user that will be update */
@@ -109,7 +114,7 @@ exports.deleteUser = (request, response) => {
         .then(result => {
             /** if update's process success */
             return response.json({
-                success: true,
+            success: true,
                 message: `Data user has been deleted`
             })
         })

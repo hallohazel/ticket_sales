@@ -11,26 +11,20 @@ module.exports = {
       },
       eventID: {
         type: Sequelize.INTEGER,
-        allowNull: false,
         references: {
-          model: 'events',   // relasi ke tabel events
+          model: 'events',
           key: 'eventID'
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        allowNull: false
       },
       rowNum: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.STRING
       },
       seatNum: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+        type: Sequelize.INTEGER
       },
       status: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: true   // kursi available secara default
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,

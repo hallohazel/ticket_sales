@@ -1,25 +1,24 @@
 'use strict';
-const { Model } = require('sequelize');
-
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Seat extends Model {
+  class seat extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
     static associate(models) {
-      // Seat → Ticket (1 seat punya 1 ticket)
-      this.hasOne(models.Ticket, {
-        foreignKey: "seatID",
-        as: "seatTicket"
-      });
-
-      // Seat → Event (banyak seat milik 1 event)
-      this.belongsTo(models.Event, {
-        foreignKey: "eventID",
-        as: "seatEvent"
-      });
+      // define association here
+      this.hasOne(models.ticket, {
+        foreignKey: "seatID", as: "seatTicket"
+      })
+      this.belongsTo(models.event, { foreignKey: 'eventID'}); 
     }
   }
-
-  Seat.init({
-    seatID: {
+  seat.init({
+    seatID:{
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
@@ -29,14 +28,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.INTEGER
     },
+    
     rowNum: DataTypes.STRING,
     seatNum: DataTypes.INTEGER,
     status: DataTypes.BOOLEAN
   }, {
     sequelize,
-    modelName: 'Seat',
-    tableName: 'seats'   // penting: biar nyambung dengan migration
+    modelName: 'seat',
   });
-
-  return Seat;
+  return seat;
 };

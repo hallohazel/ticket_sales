@@ -7,6 +7,7 @@ const Op = require(`sequelize`).Op
 /** load library 'path' and 'filestream' */
 const path = require(`path`)
 const fs = require(`fs`)
+
 /** create function for read all data */
 exports.getAllEvent = async (request, response) => {
     /** call findAll() to get all data */
@@ -17,6 +18,7 @@ exports.getAllEvent = async (request, response) => {
         message: `All Events have been loaded`
     })
 }
+
 /** create function for filter */
 exports.findEvent = async (request, response) => {
     /** define keyword to find data */
@@ -46,13 +48,14 @@ exports.findEvent = async (request, response) => {
  * with request name `image`
  */
 const upload = require(`./upload-image`).single(`image`)
+
 /** create function to add new event  */
 exports.addEvent = (request, response) => {
     /** run function upload */
     upload(request, response, async error => {
         /** check if there are error when upload */
         if (error) {
-return response.json({ message: error })
+            return response.json({ message: error })
         }
 
         /** check if file is empty */
@@ -71,23 +74,24 @@ return response.json({ message: error })
 
         /** execute inserting data to event's table */
         eventModel.create(newEvent)
-        .then(result => {
-            /** if insert's process success */
-            return response.json({
-                success: true,
-                data: result,
-                message: `New event has been inserted`
+            .then(result => {
+                /** if insert's process success */
+                return response.json({
+                    success: true,
+                    data: result,
+                    message: `New event has been inserted`
+                })
             })
-        })
-        .catch(error => {
-            /** if insert's process fail */
-            return response.json({
-                success: false,
-                message: error.message
+            .catch(error => {
+                /** if insert's process fail */
+                return response.json({
+                    success: false,
+                    message: error.message
+                })
             })
-        })
     })
 }
+
 /** create function to update event */
 exports.updateEvent = async (request, response) => {
     /** run upload function */
@@ -96,7 +100,6 @@ exports.updateEvent = async (request, response) => {
         if (error) {
             return response.json({ message: error })
         }
-
         /** store selected event ID that will update  */
         let eventID = request.params.id
 
@@ -130,11 +133,11 @@ exports.updateEvent = async (request, response) => {
             }
 
             /** add new image filename to event object */
-            dataEvent.image = request.file.filename    
+            dataEvent.image = request.file.filename
         }
 
         /** execute update data based on defined id event */
-        eventModel.update(dataEvent, { where: { eventID : eventID } })
+        eventModel.update(dataEvent, { where: { eventID: eventID } })
             .then(result => {
                 /** if update's process success */
                 return response.json({
@@ -150,8 +153,9 @@ exports.updateEvent = async (request, response) => {
                 })
             })
     })
-    
+
 }
+
 /** create function to delete event */
 exports.deleteEvent = async (request, response) => {
     /** store selected event's ID that will be delete */
@@ -169,7 +173,7 @@ exports.deleteEvent = async (request, response) => {
     /** check file existence */
     if (fs.existsSync(pathImage)) {
         /** delete old image file */
-       fs.unlink(pathImage, error => console.log(error))
+        fs.unlink(pathImage, error => console.log(error))
     }
     /** -- end of delete image file -- */
 

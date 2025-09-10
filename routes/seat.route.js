@@ -1,26 +1,29 @@
-/* load express **/
-const express = require(`express`)
-const app = express()
+/** load library express */
+const express = require(`express`);
 
-/** load seat controller */
-const seatController = require(`../controllers/seat.controller`)
+/** initiate object that instance of express */
+const app = express();
 
-/** allow request with json */
-app.use(express.json())
+/** allow to read 'request' with json type */
+app.use(express.json());
 
-/** define end point for GET all seat */
-app.get("/", seatController.getAllSeat)
+/** load seat's controller */
+const seatController = require(`../controllers/seat.controller`);
 
-/** define end point for GET seat by keyword (filter) */
-app.get("/find/:key", seatController.findSeat)
+/** create route to get data with method "GET" */
+app.get("/", seatController.getAllSeat);
 
-/** define end point for POST new seat */
-app.post("/", seatController.addSeat)
+/** create route to find seat */
+app.get("/:key", seatController.findSeat);
 
-/** define end point for PUT update seat */
-app.put("/:id", seatController.updateSeat)
+/** create route to add new seat */
+app.post("/", seatController.addSeat);
 
-/** define end point for DELETE seat */
-app.delete("/:id", seatController.deleteSeat)
+/** create route to update seat */
+app.put("/:id", seatController.updateSeat);
 
-module.exports = app
+/** create route to delete seat */
+app.delete("/:id", seatController.deleteSeat);
+
+/** export app */
+module.exports = app;

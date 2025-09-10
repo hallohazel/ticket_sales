@@ -19,5 +19,6 @@ app.get("/", ticketController.getAllTicket)
 /** create route to get data by id with method "GET" */
 app.get("/:id", ticketController.ticketByID)
 
+
 /** export app in order to load in another file */
 module.exports = app
