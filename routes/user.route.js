@@ -10,9 +10,6 @@ app.use(express.json())
 /** load user's controller */
 const userController = require(`../controllers/user.controller`)
 
-/** create route to get data with method "GET" */
-app.get("/", userController.getAllUser)
-
 /** create route to find user
  *using method "GET" and define parameter "key" for keyword */
 app.get("/:key", userController.findUser)
@@ -27,6 +24,12 @@ app.put("/:id", userController.updateUser)
 /** create route to delete user 
  * using method "DELETE" and define parameter for "id" */
 app.delete("/:id", userController.deleteUser)
+
+/** load function from simple-middleware */
+const { midOne } = require("../middlewares/simple-middleware")
+
+/** create route to get data with method "GET" */
+app.get("/", [midOne], userController.getAllUser)
 
 /** export app in order to load in another file */
 module.exports = app
