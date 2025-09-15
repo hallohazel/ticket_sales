@@ -10,26 +10,32 @@ app.use(express.json())
 /** load user's controller */
 const userController = require(`../controllers/user.controller`)
 
-/** create route to find user
- *using method "GET" and define parameter "key" for keyword */
-app.get("/:key", userController.findUser)
-
-/** create route to add new user using method "POST" */
-app.post("/", userController.addUser)
-
-/** create route to update user 
- * using method "PUT" and define parameter for "id" */
-app.put("/:id", userController.updateUser)
-
-/** create route to delete user 
- * using method "DELETE" and define parameter for "id" */
-app.delete("/:id", userController.deleteUser)
-
 /** load function from simple-middleware */
 const { midOne } = require("../middlewares/simple-middleware")
 
-/** create route to get data with method "GET" */
+/** load function from user-validation */
+const { validateUser } = require("../middlewares/user-validation")
+
+/** 
+ * ===============================
+ * ROUTE DEFINITION START HERE ✅
+ * ===============================
+ */
+
+/** create route to get all users (with simple middleware) */
 app.get("/", [midOne], userController.getAllUser)
+
+/** create route to find user using keyword */
+app.get("/:key", userController.findUser)
+
+/** ✅ FIXED: create route to add new user with validation */
+app.post("/", validateUser, userController.addUser)
+
+/** ✅ FIXED: create route to update user with validation */
+app.put("/:id", validateUser, userController.updateUser)
+
+/** create route to delete user */
+app.delete("/:id", userController.deleteUser)
 
 /** export app in order to load in another file */
 module.exports = app
