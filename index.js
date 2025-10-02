@@ -7,6 +7,9 @@ const app = express()
 /** define port of server */
 const PORT = 8000
 
+/** allow express to read JSON body from request */
+app.use(express.json())
+
 /** load library cors */
 const cors = require(`cors`)
 
