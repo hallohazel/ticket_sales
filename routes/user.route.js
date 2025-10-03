@@ -24,6 +24,8 @@ const { validateUser } = require("../middlewares/user-validation")
 
 /** create route to get all users (with simple middleware) */
 app.get("/", [midOne], userController.getAllUser)
+/** create route to get all users */
+app.get("/", userController.getAllUser)
 
 /** create route to find user using keyword */
 app.get("/:key", userController.findUser)
